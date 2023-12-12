@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  java_app_dock:
+    container_name: java-app-dock
+    image: rpej-java-app-dock:1.0.0
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_URL=jdbc:postgresql://db_postg-dock:5432/postgres
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+    depends_on:
+      - db_postg-dock
+  db_postg-dock:
+    container_name: db_postg-dock
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
